@@ -9,6 +9,7 @@ public class BeatCube : MonoBehaviour
     public SaberColor requiredColor; // Only the saber of this color can cut this block
     public float moveSpeed = 5f;
     public float missedZThreshold = -0.1f; // The Z coordinate where the cube gives up and disappears
+    public bool ignoreDirectionRequirement = false; // Used for "Any" direction dot blocks
     
     [Header("Slicing Effect Tuning")]
     public Vector3 slicedPieceOffset = new Vector3(0.5f, 0.5f, 0f); // Where do the pieces instantly teleport to relative to the center?
