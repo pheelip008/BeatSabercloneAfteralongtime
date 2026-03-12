@@ -43,12 +43,9 @@ public class BeatSpawner : MonoBehaviour
         float currentTime = (beatMusic != null && beatMusic.isPlaying) ? beatMusic.time : Time.time;
         float adjustedTime = currentTime - currentLevel.songOffsetSeconds;
 
-        // Calculate how many seconds early we need to spawn the block so it reaches the player exactly on the beat.
-        // Time = Distance / Speed.
-        float travelTimeSeconds = customSpawnOrigin.z / cubeMoveSpeed;
-        
-        // This is the moment the block needs to SPAWN back in the distance
-        float triggerTime = currentLevel.blocks[nextBlockIndex].spawnTime - travelTimeSeconds;
+        // Spawn the cube exactly at the time authored in the beatmap window.
+        // Here, BeatData.spawnTime is treated as the SPAWN moment, not the hit moment.
+        float triggerTime = currentLevel.blocks[nextBlockIndex].spawnTime;
 
         if (adjustedTime >= triggerTime)
         {
@@ -84,15 +81,15 @@ public class BeatSpawner : MonoBehaviour
         float zRot = 0;
         switch (data.direction)
         {
-            case CutDirection.Down: zRot = 0f; break;
-            case CutDirection.Up: zRot = 180f; break;
-            case CutDirection.Right: zRot = 90f; break;
-            case CutDirection.Left: zRot = -90f; break;
-            case CutDirection.DownRight: zRot = 45f; break;
-            case CutDirection.UpRight: zRot = 135f; break;
-            case CutDirection.DownLeft: zRot = -45f; break;
-            case CutDirection.UpLeft: zRot = -135f; break;
-            case CutDirection.Any: zRot = 0f; break; // Visual only, dot block logic would go here
+            case CutDirection.Down: zRot = 180f; break;
+            case CutDirection.Up: zRot = 0f; break;
+            case CutDirection.Right: zRot = -90f; break;
+            case CutDirection.Left: zRot = 90f; break;
+            case CutDirection.DownRight: zRot = -135f; break;
+            case CutDirection.UpRight: zRot = -45f; break;
+            case CutDirection.DownLeft: zRot = 135f; break;
+            case CutDirection.UpLeft: zRot = 45f; break;
+            case CutDirection.Any: zRot = 0f; break;
         }
 
         Quaternion rotation = Quaternion.Euler(0, 0, zRot);
